@@ -23,12 +23,13 @@ export class EstudianteService {
           'El estudiante con los datos enviados ya existe',
         );
 
-      const postResponse = await axios.post(
+      const postEstudiante = await axios.post(
         `${process.env.USER_SERVICE_HOST}/Estudiantes/Estudiantes`,
         createEstudianteDto,
       );
 
-      return postResponse.data;
+      //falta agregar al estudiante al search
+      return postEstudiante.data;
     } catch (error) {
       return error.response;
     }
