@@ -23,13 +23,23 @@ export class EstudianteService {
           'El estudiante con los datos enviados ya existe',
         );
 
-      const postEstudiante = await axios.post(
+      const postEstudianteResponse = await axios.post(
         `${process.env.USER_SERVICE_HOST}/Estudiantes/Estudiantes`,
         createEstudianteDto,
       );
+      const postEstudiante: Estudiante = postEstudianteResponse.data;
+      const estudiante_searchBody = {
+        id: postEstudiante.id,
+        name: `${postEstudiante.nombre} ${postEstudiante.apellido}`,
+        email: postEstudiante.email,
+      };
 
-      //falta agregar al estudiante al search
-      return postEstudiante.data;
+      await axios.post(
+        `${process.env.SEARCH_SERVICE_HOST}/api/manage/student`,
+        estudiante_searchBody,
+      );
+
+      return postEstudiante;
     } catch (error) {
       return error.response;
     }
