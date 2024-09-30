@@ -19,32 +19,4 @@ export class RestriccionController {
   crearRestriccion(@Body() createRestriccionDto: CreateRestriccionDto) {
     return this.restriccionService.crearRestriccion(createRestriccionDto);
   }
-
-  @Post()
-  create(@Body() createRestriccionDto: CreateRestriccionDto) {
-    return this.restriccionService.create(createRestriccionDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.restriccionService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.restriccionService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateRestriccionDto: UpdateRestriccionDto,
-  ) {
-    return this.restriccionService.update(+id, updateRestriccionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.restriccionService.remove(+id);
-  }
 }

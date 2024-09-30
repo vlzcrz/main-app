@@ -47,31 +47,27 @@ export class RestriccionService {
         throw new BadRequestException(
           'Las uuid de los estudiantes provistos no son correctos, intentelo nuevamente',
         );
+
+      const restricciones_search_await = restricciones_validadas.map(
+        async (restriccion) => {
+          const responsePostRestriccion = await axios.post(
+            `${process.env.SEARCH_SERVICE_HOST}/api/manage/student/${restriccion.uuid_estudiante}/restriction`,
+            {
+              restrictionId: restriccion.uuid_restriccion,
+              reason: restriccion.razon,
+              creationDate: restriccion.fecha_creacion,
+            },
+          );
+          return responsePostRestriccion.data;
+        },
+      );
+
+      const resp = await Promise.all(restricciones_search_await);
+      console.log(resp);
       return restricciones_validadas;
     } catch (error) {
       console.log(error);
       return error.response;
     }
-    return;
-  }
-
-  create(createRestriccionDto: CreateRestriccionDto) {
-    return 'This action adds a new restriccion';
-  }
-
-  findAll() {
-    return `This action returns all restriccion`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} restriccion`;
-  }
-
-  update(id: number, updateRestriccionDto: UpdateRestriccionDto) {
-    return `This action updates a #${id} restriccion`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} restriccion`;
   }
 }

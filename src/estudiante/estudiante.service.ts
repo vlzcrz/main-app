@@ -7,7 +7,7 @@ import { Estudiante } from 'src/interfaces/estudiante.interface';
 @Injectable()
 export class EstudianteService {
   async crearEstudiante(createEstudianteDto: CreateEstudianteDto) {
-    const { nombre, apellido, email } = createEstudianteDto;
+    const { email } = createEstudianteDto;
     const isInEstudiantes = (estudiante) => {
       return estudiante.email === email;
     };
@@ -43,21 +43,5 @@ export class EstudianteService {
     } catch (error) {
       return error.response;
     }
-  }
-
-  findAll() {
-    return `This action returns all estudiante`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} estudiante`;
-  }
-
-  update(id: number, updateEstudianteDto: UpdateEstudianteDto) {
-    return `This action updates a #${id} estudiante`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} estudiante`;
   }
 }

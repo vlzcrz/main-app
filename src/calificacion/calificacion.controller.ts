@@ -6,44 +6,24 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CalificacionService } from './calificacion.service';
 import { CreateCalificacionDto } from './dto/create-calificacion.dto';
 import { UpdateCalificacionDto } from './dto/update-calificacion.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('calificacion')
 export class CalificacionController {
   constructor(private readonly calificacionService: CalificacionService) {}
 
   @Post('asignar')
+  @UseGuards(AuthGuard('jwt'))
   asignarCalificacion(
-    @Body() createListCalificacionDto: CreateCalificacionDto[],
+    @Body() createListCalificacionDto: CreateCalificacionDto,
   ) {
     return this.calificacionService.asignarCalificacion(
       createListCalificacionDto,
     );
-  }
-
-  @Get()
-  findAll() {
-    return this.calificacionService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.calificacionService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateCalificacionDto: UpdateCalificacionDto,
-  ) {
-    return this.calificacionService.update(+id, updateCalificacionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.calificacionService.remove(+id);
   }
 }

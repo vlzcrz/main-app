@@ -1,17 +1,10 @@
-import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsArray, IsString } from 'class-validator';
+import { DataCalificacion } from './data-calificacion.dto';
 
 export class CreateCalificacionDto {
   @IsString()
   studentId: string;
-  @IsString()
-  subjectName: string;
-  @IsString()
-  gradeName: string;
-  @IsNumber()
-  @Min(1)
-  @Max(7)
-  grade: number;
-  @IsString()
-  @IsOptional()
-  comment: string;
+
+  @IsArray()
+  grades: DataCalificacion[];
 }
